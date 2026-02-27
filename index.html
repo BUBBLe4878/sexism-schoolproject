@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Beyond Bias — Fighting Sexism Together</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF7F2;
+    --ink: #1A1208;
+    --rose: #C84B5A;
+    --gold: #D4A843;
+    --sage: #4A7C59;
+    --blush: #EDD5C8;
+    --charcoal: #2E2A26;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    background: rgba(250,247,242,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(26,18,8,0.1);
+    padding: 16px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem; font-weight: 900;
+    color: var(--rose);
+    letter-spacing: -0.5px;
+  }
+  nav ul { list-style: none; display: flex; gap: 32px; }
+  nav a {
+    text-decoration: none; color: var(--charcoal);
+    font-size: 0.85rem; font-weight: 500; letter-spacing: 0.5px;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: var(--rose); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: grid; grid-template-columns: 1fr 1fr;
+    padding-top: 72px;
+  }
+  .hero-left {
+    background: var(--ink);
+    padding: 80px 60px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative; overflow: hidden;
+  }
+  .hero-left::before {
+    content: '';
+    position: absolute; top: -100px; right: -100px;
+    width: 400px; height: 400px;
+    background: var(--rose); opacity: 0.15;
+    border-radius: 50%;
+  }
+  .hero-eyebrow {
+    font-size: 0.75rem; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 24px; font-weight: 600;
+  }
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    line-height: 1.05; color: var(--cream);
+    font-weight: 900; margin-bottom: 32px;
+  }
+  .hero-title em { color: var(--rose); font-style: italic; }
+  .hero-desc {
+    font-size: 1.1rem; line-height: 1.7;
+    color: rgba(250,247,242,0.7);
+    max-width: 440px; margin-bottom: 48px;
+  }
+  .btn {
+    display: inline-block; padding: 16px 36px;
+    background: var(--rose); color: white;
+    text-decoration: none; font-weight: 600;
+    font-size: 0.9rem; letter-spacing: 0.5px;
+    transition: all 0.3s; border: none; cursor: pointer;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+  .btn:hover { background: var(--gold); transform: translateY(-2px); }
+  .btn-outline {
+    background: transparent; border: 2px solid var(--rose); color: var(--rose);
+    clip-path: none;
+  }
+  .btn-outline:hover { background: var(--rose); color: white; }
+
+  .hero-right {
+    background: var(--blush);
+    padding: 80px 60px;
+    display: flex; flex-direction: column; justify-content: center;
+    position: relative;
+  }
+  .stat-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+  }
+  .stat-card {
+    background: white; padding: 28px 24px;
+    border-left: 4px solid var(--rose);
+    animation: fadeUp 0.6s ease backwards;
+  }
+  .stat-card:nth-child(2) { animation-delay: 0.1s; border-color: var(--gold); }
+  .stat-card:nth-child(3) { animation-delay: 0.2s; border-color: var(--sage); }
+  .stat-card:nth-child(4) { animation-delay: 0.3s; border-color: var(--charcoal); }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.8rem; font-weight: 900; color: var(--rose);
+    line-height: 1;
+  }
+  .stat-card:nth-child(2) .stat-num { color: var(--gold); }
+  .stat-card:nth-child(3) .stat-num { color: var(--sage); }
+  .stat-card:nth-child(4) .stat-num { color: var(--charcoal); }
+  .stat-label { font-size: 0.8rem; color: var(--charcoal); margin-top: 8px; line-height: 1.4; font-weight: 500; }
+  .hero-right-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem; font-weight: 700;
+    margin-bottom: 32px; color: var(--charcoal);
+  }
+
+  /* SECTION SHARED */
+  section { padding: 100px 80px; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--rose); font-weight: 700; margin-bottom: 16px;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 900; line-height: 1.15; margin-bottom: 24px;
+  }
+  .section-body {
+    font-size: 1.05rem; line-height: 1.8;
+    color: #4A4440; max-width: 680px;
+  }
+
+  /* WHAT IS SEXISM */
+  #what { background: white; }
+  .what-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; margin-top: 60px;
+  }
+  .what-text .section-body { max-width: 100%; }
+  .type-cards { display: flex; flex-direction: column; gap: 16px; }
+  .type-card {
+    border: 1px solid #EDE8E0;
+    padding: 24px 28px;
+    position: relative;
+    transition: border-color 0.3s, transform 0.3s;
+  }
+  .type-card:hover { border-color: var(--rose); transform: translateX(8px); }
+  .type-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; color: var(--ink); }
+  .type-desc { font-size: 0.88rem; line-height: 1.6; color: #666; }
+  .type-tag {
+    position: absolute; top: 16px; right: 16px;
+    font-size: 0.65rem; letter-spacing: 1px; text-transform: uppercase;
+    padding: 4px 10px; background: var(--blush); color: var(--rose); font-weight: 700;
+  }
+
+  /* IMPACTS */
+  #impact {
+    background: var(--ink); color: var(--cream);
+  }
+  #impact .section-title { color: var(--cream); }
+  #impact .section-body { color: rgba(250,247,242,0.7); }
+  .impact-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; margin-top: 60px;
+  }
+  .impact-card {
+    background: rgba(255,255,255,0.04);
+    padding: 48px 36px;
+    border-top: 3px solid transparent;
+    transition: border-color 0.3s, background 0.3s;
+  }
+  .impact-card:hover { border-color: var(--rose); background: rgba(200,75,90,0.08); }
+  .impact-icon { font-size: 2.5rem; margin-bottom: 24px; }
+  .impact-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 14px; color: var(--cream); }
+  .impact-text { font-size: 0.9rem; line-height: 1.7; color: rgba(250,247,242,0.6); }
+
+  /* HOW TO PREVENT */
+  #prevent { background: var(--cream); }
+  .prevent-cols {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 80px; margin-top: 60px;
+  }
+  .prevent-list { display: flex; flex-direction: column; gap: 0; }
+  .prevent-item {
+    display: flex; gap: 24px; padding: 28px 0;
+    border-bottom: 1px solid #EDE8E0;
+    animation: fadeUp 0.5s ease backwards;
+  }
+  .prevent-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.5rem; font-weight: 900;
+    color: var(--blush); line-height: 1; flex-shrink: 0; width: 48px;
+  }
+  .prevent-content h3 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; }
+  .prevent-content p { font-size: 0.88rem; line-height: 1.6; color: #666; }
+  .bystander-box {
+    background: var(--ink); padding: 48px 40px; color: var(--cream);
+    align-self: start; position: sticky; top: 100px;
+  }
+  .bystander-box h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.6rem; font-weight: 900; margin-bottom: 24px; color: var(--cream);
+  }
+  .bystander-step {
+    display: flex; gap: 16px; align-items: flex-start; margin-bottom: 20px;
+  }
+  .b-num {
+    background: var(--rose); color: white;
+    width: 28px; height: 28px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+  }
+  .b-text { font-size: 0.88rem; line-height: 1.6; color: rgba(250,247,242,0.8); }
+
+  /* RESEARCH */
+  #research { background: var(--blush); }
+  .research-layout { display: grid; grid-template-columns: 1fr 1.2fr; gap: 64px; margin-top: 60px; }
+  .research-form { background: white; padding: 40px; }
+  .research-form h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 28px; }
+  .form-group { margin-bottom: 20px; }
+  label { display: block; font-size: 0.8rem; font-weight: 600; letter-spacing: 0.5px; margin-bottom: 8px; color: var(--charcoal); }
+  input, textarea, select {
+    width: 100%; padding: 12px 16px;
+    border: 1.5px solid #DDD8D0; background: var(--cream);
+    font-family: 'DM Sans', sans-serif; font-size: 0.9rem;
+    color: var(--ink); transition: border-color 0.2s; outline: none;
+  }
+  input:focus, textarea:focus, select:focus { border-color: var(--rose); }
+  textarea { height: 120px; resize: vertical; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .form-actions { display: flex; gap: 12px; margin-top: 24px; flex-wrap: wrap; }
+
+  .research-entries h3 { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; margin-bottom: 24px; }
+  .entry-list { display: flex; flex-direction: column; gap: 16px; max-height: 600px; overflow-y: auto; padding-right: 8px; }
+  .entry-list::-webkit-scrollbar { width: 4px; }
+  .entry-list::-webkit-scrollbar-track { background: transparent; }
+  .entry-list::-webkit-scrollbar-thumb { background: var(--rose); }
+  .entry-card {
+    background: white; padding: 24px 28px;
+    border-left: 4px solid var(--rose);
+    animation: fadeUp 0.4s ease;
+  }
+  .entry-meta { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+  .entry-tag {
+    font-size: 0.7rem; letter-spacing: 1px; text-transform: uppercase;
+    padding: 3px 10px; background: var(--blush); color: var(--rose); font-weight: 700;
+  }
+  .entry-date { font-size: 0.75rem; color: #999; }
+  .entry-title { font-weight: 700; font-size: 1rem; margin-bottom: 6px; }
+  .entry-author { font-size: 0.78rem; color: #888; margin-bottom: 8px; }
+  .entry-summary { font-size: 0.85rem; line-height: 1.6; color: #555; }
+  .entry-link { font-size: 0.8rem; color: var(--rose); text-decoration: none; font-weight: 600; }
+  .entry-link:hover { text-decoration: underline; }
+  .entry-actions { display: flex; gap: 8px; margin-top: 12px; }
+  .btn-sm {
+    padding: 6px 14px; font-size: 0.75rem; font-weight: 600;
+    border: none; cursor: pointer; transition: all 0.2s;
+  }
+  .btn-delete { background: #FEE; color: var(--rose); }
+  .btn-delete:hover { background: var(--rose); color: white; }
+  .empty-state { text-align: center; padding: 60px 20px; color: #999; }
+  .empty-icon { font-size: 3rem; margin-bottom: 16px; }
+  .empty-text { font-size: 0.9rem; }
+  .search-bar {
+    display: flex; gap: 12px; margin-bottom: 20px;
+  }
+  .search-bar input { flex: 1; }
+  .filter-sel { width: auto; min-width: 140px; }
+
+  /* FOOTER */
+  footer {
+    background: var(--charcoal); color: rgba(250,247,242,0.6);
+    padding: 60px 80px 40px;
+    display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px;
+  }
+  .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 900; color: var(--rose); margin-bottom: 16px; }
+  .footer-tagline { font-size: 0.85rem; line-height: 1.7; }
+  footer h4 { font-size: 0.75rem; letter-spacing: 2px; text-transform: uppercase; color: var(--cream); margin-bottom: 16px; }
+  footer ul { list-style: none; }
+  footer li { margin-bottom: 10px; }
+  footer a { color: rgba(250,247,242,0.6); text-decoration: none; font-size: 0.85rem; transition: color 0.2s; }
+  footer a:hover { color: var(--rose); }
+  .footer-bottom {
+    background: var(--charcoal); color: rgba(250,247,242,0.3);
+    padding: 20px 80px; font-size: 0.78rem;
+    border-top: 1px solid rgba(255,255,255,0.08);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .fade-in { animation: fadeUp 0.7s ease backwards; }
+
+  /* TOAST */
+  .toast {
+    position: fixed; bottom: 32px; right: 32px; z-index: 9999;
+    background: var(--sage); color: white;
+    padding: 16px 24px; font-size: 0.9rem; font-weight: 600;
+    transform: translateY(100px); transition: transform 0.3s;
+    max-width: 300px;
+  }
+  .toast.show { transform: translateY(0); }
+  .toast.error { background: var(--rose); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-left { padding: 60px 32px; }
+    .hero-right { padding: 60px 32px; }
+    section { padding: 72px 32px; }
+    .what-grid, .impact-grid, .prevent-cols, .research-layout { grid-template-columns: 1fr; gap: 40px; }
+    nav { padding: 16px 24px; }
+    nav ul { gap: 16px; }
+    footer { grid-template-columns: 1fr; gap: 32px; padding: 48px 32px 32px; }
+    .footer-bottom { padding: 16px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Beyond Bias</div>
+  <ul>
+    <li><a href="#what">What Is Sexism</a></li>
+    <li><a href="#impact">Impact</a></li>
+    <li><a href="#prevent">Prevent It</a></li>
+    <li><a href="#research">Research</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" style="padding: 0;">
+  <div class="hero-left">
+    <div class="hero-eyebrow">An Educational Resource</div>
+    <h1 class="hero-title">
+      Sexism <em>Hurts</em><br>Everyone.
+    </h1>
+    <p class="hero-desc">
+      Gender-based discrimination doesn't just harm those it targets — it weakens communities, limits human potential, and holds all of us back. Understanding it is the first step to ending it.
+    </p>
+    <div style="display:flex; gap: 16px; flex-wrap: wrap;">
+      <a href="#what" class="btn">Learn More</a>
+      <a href="#research" class="btn btn-outline" style="background:transparent; color: var(--blush); border-color: var(--blush);">Add Research</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <p class="hero-right-title">The Numbers Don't Lie</p>
+    <div class="stat-grid">
+      <div class="stat-card">
+        <div class="stat-num">35%</div>
+        <div class="stat-label">of women globally have experienced physical or sexual violence</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">82¢</div>
+        <div class="stat-label">earned by women for every dollar men earn in similar roles</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">58%</div>
+        <div class="stat-label">of women report experiencing gender discrimination in the workplace</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">2075</div>
+        <div class="stat-label">the year gender parity is projected to be achieved at current rates</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHAT IS SEXISM -->
+<section id="what">
+  <div class="section-label">Understanding the Problem</div>
+  <h2 class="section-title">What Is Sexism?</h2>
+  <div class="what-grid">
+    <div class="what-text">
+      <p class="section-body">
+        Sexism is prejudice, stereotyping, or discrimination based on a person's sex or gender. It can be overt and obvious, or subtle and hard to name. It shows up in individual actions, cultural attitudes, and in the systems and institutions that shape our lives.
+      </p>
+      <p class="section-body" style="margin-top: 20px;">
+        Sexism affects people of all genders, though women and girls are disproportionately impacted. It also intersects with race, class, sexuality, and disability — meaning some people face compounded forms of discrimination.
+      </p>
+    </div>
+    <div class="type-cards">
+      <div class="type-card">
+        <div class="type-tag">Overt</div>
+        <div class="type-title">Hostile Sexism</div>
+        <div class="type-desc">Explicit, often aggressive attitudes that demean or objectify based on gender. Includes harassment, derogatory comments, and outright discrimination.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-tag">Hidden</div>
+        <div class="type-title">Benevolent Sexism</div>
+        <div class="type-desc">Seemingly "positive" stereotypes that still limit people — like assuming women need protection or aren't suited for leadership. These feel complimentary but reinforce inequality.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-tag">Structural</div>
+        <div class="type-title">Institutional Sexism</div>
+        <div class="type-desc">Discrimination baked into laws, policies, hiring practices, media, and cultural norms. It doesn't require individual bad intent — it operates through systems.</div>
+      </div>
+      <div class="type-card">
+        <div class="type-tag">Everyday</div>
+        <div class="type-title">Microaggressions</div>
+        <div class="type-desc">Subtle, often unintentional slights or dismissals — being talked over, having ideas credited to others, or facing different expectations based on gender.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- IMPACT -->
+<section id="impact">
+  <div class="section-label" style="color: var(--gold);">Why It Matters</div>
+  <h2 class="section-title">The Real-World Impact</h2>
+  <p class="section-body">Sexism isn't abstract. It has measurable, devastating effects across every domain of human life.</p>
+  <div class="impact-grid">
+    <div class="impact-card">
+      <div class="impact-icon">💼</div>
+      <div class="impact-title">Economic Cost</div>
+      <div class="impact-text">The gender pay gap, occupational segregation, and barriers to promotion cost women trillions in lifetime earnings. Closing the gap could add $12 trillion to global GDP.</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">🧠</div>
+      <div class="impact-title">Mental Health</div>
+      <div class="impact-text">Experiencing sexism is linked to higher rates of depression, anxiety, and PTSD. Chronic exposure to discrimination is a significant public health crisis.</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">🏫</div>
+      <div class="impact-title">Education Gaps</div>
+      <div class="impact-text">Gender stereotypes steer girls away from STEM and leadership. Boys are pushed away from caring professions. Both lose out on their full human potential.</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">⚖️</div>
+      <div class="impact-title">Legal Inequality</div>
+      <div class="impact-text">In many countries, women still lack equal legal rights to inheritance, property, employment, and protection from violence under the law.</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">🌍</div>
+      <div class="impact-title">Global Development</div>
+      <div class="impact-text">Nations with higher gender equality consistently outperform others in health outcomes, political stability, and economic growth. Equality is development.</div>
+    </div>
+    <div class="impact-card">
+      <div class="impact-icon">👨‍👩‍👧</div>
+      <div class="impact-title">Men & Families</div>
+      <div class="impact-text">Rigid gender roles harm men too — suppressing emotional expression, limiting parental involvement, and contributing to higher rates of male suicide and isolation.</div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVENT -->
+<section id="prevent">
+  <div class="section-label">Taking Action</div>
+  <h2 class="section-title">How to Prevent Sexism</h2>
+  <p class="section-body">Change happens at every level — from individual choices to institutional reform. Here's how you can be part of the solution.</p>
+  <div class="prevent-cols">
+    <div class="prevent-list">
+      <div class="prevent-item">
+        <div class="prevent-num">01</div>
+        <div class="prevent-content">
+          <h3>Educate Yourself & Others</h3>
+          <p>Learn how sexism operates at systemic and interpersonal levels. Share what you learn with your community. Understanding bias is essential before you can challenge it.</p>
+        </div>
+      </div>
+      <div class="prevent-item">
+        <div class="prevent-num">02</div>
+        <div class="prevent-content">
+          <h3>Challenge Stereotypes</h3>
+          <p>When you hear gender-based assumptions — in conversation, media, or policies — name them. Saying "that's a stereotype" or asking "why?" can shift thinking.</p>
+        </div>
+      </div>
+      <div class="prevent-item">
+        <div class="prevent-num">03</div>
+        <div class="prevent-content">
+          <h3>Amplify Marginalized Voices</h3>
+          <p>In meetings, classrooms, and public spaces, actively pass the mic. If someone's idea is ignored and then repeated by another person, credit the original speaker.</p>
+        </div>
+      </div>
+      <div class="prevent-item">
+        <div class="prevent-num">04</div>
+        <div class="prevent-content">
+          <h3>Support Equal Pay & Policy</h3>
+          <p>Advocate for pay transparency at your workplace. Support political candidates and policies that advance gender equality in law and in institutions.</p>
+        </div>
+      </div>
+      <div class="prevent-item">
+        <div class="prevent-num">05</div>
+        <div class="prevent-content">
+          <h3>Reflect on Your Own Bias</h3>
+          <p>Everyone has unconscious biases. Regular self-reflection — noticing when you make gender-based assumptions — is how you reduce them over time.</p>
+        </div>
+      </div>
+      <div class="prevent-item">
+        <div class="prevent-num">06</div>
+        <div class="prevent-content">
+          <h3>Support Organizations Fighting Sexism</h3>
+          <p>Donate to or volunteer with groups working on gender equality, domestic violence prevention, women's leadership, and policy reform.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="bystander-box">
+        <h3>Bystander Intervention</h3>
+        <p style="font-size: 0.85rem; color: rgba(250,247,242,0.6); margin-bottom: 28px; line-height: 1.6;">When you witness sexism, you have power. Here's how to respond safely and effectively:</p>
+        <div class="bystander-step">
+          <div class="b-num">1</div>
+          <div class="b-text"><strong style="color: var(--cream);">Distract.</strong> Change the subject or create an interruption to defuse the situation without direct confrontation.</div>
+        </div>
+        <div class="bystander-step">
+          <div class="b-num">2</div>
+          <div class="b-text"><strong style="color: var(--cream);">Delegate.</strong> Find someone in a position of authority — a manager, teacher, or bystander — who can help.</div>
+        </div>
+        <div class="bystander-step">
+          <div class="b-num">3</div>
+          <div class="b-text"><strong style="color: var(--cream);">Document.</strong> If it's safe to do so, record what's happening so there's evidence to report later.</div>
+        </div>
+        <div class="bystander-step">
+          <div class="b-num">4</div>
+          <div class="b-text"><strong style="color: var(--cream);">Direct.</strong> Address the behavior directly and calmly: "That comment was inappropriate."</div>
+        </div>
+        <div class="bystander-step">
+          <div class="b-num">5</div>
+          <div class="b-text"><strong style="color: var(--cream);">Check In.</strong> After the incident, ask the person targeted how they're doing. Follow up and offer support.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH -->
+<section id="research">
+  <div class="section-label">Knowledge Hub</div>
+  <h2 class="section-title">Research & Resources</h2>
+  <p class="section-body">Add studies, articles, books, or reports to build a shared knowledge base. All entries are stored locally in your browser.</p>
+
+  <div class="research-layout">
+    <!-- FORM -->
+    <div class="research-form">
+      <h3>Add Research Entry</h3>
+      <div class="form-group">
+        <label>Title *</label>
+        <input type="text" id="r-title" placeholder="Research title or article name">
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Author / Source</label>
+          <input type="text" id="r-author" placeholder="e.g. Dr. Jane Smith / WHO">
+        </div>
+        <div class="form-group">
+          <label>Year</label>
+          <input type="number" id="r-year" placeholder="2024" min="1900" max="2099">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Category</label>
+        <select id="r-category">
+          <option value="">— Select a category —</option>
+          <option>Workplace & Pay Gap</option>
+          <option>Media & Representation</option>
+          <option>Health & Mental Health</option>
+          <option>Education</option>
+          <option>Law & Policy</option>
+          <option>Intersectionality</option>
+          <option>Historical</option>
+          <option>Prevention & Solutions</option>
+          <option>Statistics & Data</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Summary / Key Findings *</label>
+        <textarea id="r-summary" placeholder="What does this research say? What are the main findings?"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Link / URL</label>
+        <input type="url" id="r-link" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label>Notes</label>
+        <textarea id="r-notes" placeholder="Any personal notes, quotes, or context to add..." style="height: 80px;"></textarea>
+      </div>
+      <div class="form-actions">
+        <button class="btn" onclick="addEntry()">Add Entry</button>
+        <button class="btn btn-outline" onclick="clearForm()">Clear</button>
+      </div>
+    </div>
+
+    <!-- ENTRIES -->
+    <div class="research-entries">
+      <h3>Your Research Collection (<span id="entry-count">0</span>)</h3>
+      <div class="search-bar">
+        <input type="text" id="search-input" placeholder="Search entries..." oninput="renderEntries()">
+        <select class="filter-sel" id="filter-cat" onchange="renderEntries()">
+          <option value="">All Categories</option>
+          <option>Workplace & Pay Gap</option>
+          <option>Media & Representation</option>
+          <option>Health & Mental Health</option>
+          <option>Education</option>
+          <option>Law & Policy</option>
+          <option>Intersectionality</option>
+          <option>Historical</option>
+          <option>Prevention & Solutions</option>
+          <option>Statistics & Data</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div id="entry-list" class="entry-list"></div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div>
+    <div class="footer-brand">Beyond Bias</div>
+    <p class="footer-tagline">An educational resource dedicated to understanding and ending gender-based discrimination. Knowledge is the first step toward justice.</p>
+  </div>
+  <div>
+    <h4>Sections</h4>
+    <ul>
+      <li><a href="#what">What Is Sexism</a></li>
+      <li><a href="#impact">The Impact</a></li>
+      <li><a href="#prevent">Prevention</a></li>
+      <li><a href="#research">Research Hub</a></li>
+    </ul>
+  </div>
+  <div>
+    <h4>Resources</h4>
+    <ul>
+      <li><a href="https://www.unwomen.org" target="_blank">UN Women</a></li>
+      <li><a href="https://www.aauw.org" target="_blank">AAUW</a></li>
+      <li><a href="https://www.genderequality.ie" target="_blank">Gender Equality</a></li>
+      <li><a href="https://www.catalyst.org" target="_blank">Catalyst</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  &copy; 2025 Beyond Bias — Built to educate, inspire, and empower.
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+  let entries = JSON.parse(localStorage.getItem('research_entries') || '[]');
+
+  function showToast(msg, type = 'success') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast' + (type === 'error' ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3000);
+  }
+
+  function addEntry() {
+    const title = document.getElementById('r-title').value.trim();
+    const summary = document.getElementById('r-summary').value.trim();
+    if (!title) { showToast('Please add a title.', 'error'); return; }
+    if (!summary) { showToast('Please add a summary.', 'error'); return; }
+
+    const entry = {
+      id: Date.now(),
+      title,
+      author: document.getElementById('r-author').value.trim(),
+      year: document.getElementById('r-year').value.trim(),
+      category: document.getElementById('r-category').value,
+      summary,
+      link: document.getElementById('r-link').value.trim(),
+      notes: document.getElementById('r-notes').value.trim(),
+      date: new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    };
+
+    entries.unshift(entry);
+    saveEntries();
+    renderEntries();
+    clearForm();
+    showToast('Research entry added!');
+  }
+
+  function deleteEntry(id) {
+    entries = entries.filter(e => e.id !== id);
+    saveEntries();
+    renderEntries();
+    showToast('Entry deleted.');
+  }
+
+  function clearForm() {
+    ['r-title','r-author','r-year','r-category','r-summary','r-link','r-notes'].forEach(id => {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+  }
+
+  function saveEntries() {
+    localStorage.setItem('research_entries', JSON.stringify(entries));
+  }
+
+  function renderEntries() {
+    const list = document.getElementById('entry-list');
+    const search = document.getElementById('search-input').value.toLowerCase();
+    const cat = document.getElementById('filter-cat').value;
+
+    let filtered = entries.filter(e => {
+      const matchSearch = !search || e.title.toLowerCase().includes(search) || e.summary.toLowerCase().includes(search) || e.author.toLowerCase().includes(search);
+      const matchCat = !cat || e.category === cat;
+      return matchSearch && matchCat;
+    });
+
+    document.getElementById('entry-count').textContent = entries.length;
+
+    if (filtered.length === 0) {
+      list.innerHTML = `<div class="empty-state"><div class="empty-icon">📚</div><div class="empty-text">${entries.length === 0 ? 'No research yet. Add your first entry using the form.' : 'No entries match your search.'}</div></div>`;
+      return;
+    }
+
+    list.innerHTML = filtered.map(e => `
+      <div class="entry-card">
+        <div class="entry-meta">
+          ${e.category ? `<span class="entry-tag">${e.category}</span>` : ''}
+          <span class="entry-date">${e.date}</span>
+          ${e.year ? `<span class="entry-date">${e.year}</span>` : ''}
+        </div>
+        <div class="entry-title">${escHtml(e.title)}</div>
+        ${e.author ? `<div class="entry-author">By ${escHtml(e.author)}</div>` : ''}
+        <div class="entry-summary">${escHtml(e.summary)}</div>
+        ${e.notes ? `<div class="entry-summary" style="margin-top:8px; color: #888; font-style: italic;">📝 ${escHtml(e.notes)}</div>` : ''}
+        <div class="entry-actions">
+          ${e.link ? `<a href="${escHtml(e.link)}" target="_blank" class="entry-link">View Source →</a>` : ''}
+          <button class="btn-sm btn-delete" onclick="deleteEntry(${e.id})">Delete</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function escHtml(s) {
+    return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // Init
+  renderEntries();
+
+  // Scroll animations
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.stat-card, .type-card, .impact-card, .prevent-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
